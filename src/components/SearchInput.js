@@ -6,7 +6,7 @@ function SearchInput() {
 
   const handleChange = (e) => {
     setNameFilter({ name: e.target.value });
-};
+  };
 
   return (
     <div>
