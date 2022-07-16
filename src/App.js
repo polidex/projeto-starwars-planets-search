@@ -1,26 +1,20 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import Table from './components/Table';
 import './App.css';
-import StarsWarsContext from './context/StarWarsContext';
+import Provider from './context/Provider';
 
 function App() {
-  const [planetsList, setPlanetsList] = useState([]);
-
-  const fetchPlanets = () => {
-    fetch('https://swapi-trybe.herokuapp.com/api/planets/')
-      .then((result) => result.json())
-      .then((planets) => setPlanetsList(planets.results));
-  };
-
-  useEffect(fetchPlanets, []);
-
   return (
-    <StarsWarsContext.Provider value={ planetsList }>
+    <Provider>
       <div>
+        <input
+          type="text"
+          data-testid="name-filter"
+          placeholder="Search a planet"
+        />
         <Table />
-        {/* <button type="button" onClick={ () => console.log('oi!') }> Teste </button> */}
       </div>
-    </StarsWarsContext.Provider>
+    </Provider>
   );
 }
 
