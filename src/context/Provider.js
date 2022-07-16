@@ -4,9 +4,13 @@ import Context from './Context';
 
 function Provider({ children }) {
   const [planetsList, setPlanetsList] = useState([]);
+  const [nameFilter, setNameFilter] = useState({ name: '' });
+
   const contextValue = {
     planetsList,
     setPlanetsList,
+    nameFilter,
+    setNameFilter,
   };
 
   useEffect(() => {
