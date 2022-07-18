@@ -4,8 +4,8 @@ import Context from '../context/Context';
 function SearchInput() {
   const { nameFilter, setNameFilter } = useContext(Context);
 
-  const handleChange = (e) => {
-    setNameFilter({ name: e.target.value });
+  const handleChange = ({ target: { value } }) => {
+    setNameFilter({ name: value });
   };
 
   return (

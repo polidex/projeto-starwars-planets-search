@@ -2,11 +2,32 @@ import React, { useContext } from 'react';
 import Context from '../context/Context';
 
 function Table() {
-  const { planetsList, nameFilter } = useContext(Context);
+  const { planetsList, nameFilter, valueFilterList } = useContext(Context);
 
   function searchFilter() {
     return planetsList.filter(({ name }) => name.includes(nameFilter.name));
   }
+
+  const applyFilter = ({ columnFilter, comparisonFilter, valueFilter }, array) => {
+    switch (comparisonFilter) {
+    case 'maior que':
+      return array.filter((item) => Number(item[columnFilter]) > Number(valueFilter));
+    case 'menor que':
+      return array.filter((item) => Number(item[columnFilter]) < Number(valueFilter));
+    case 'igual a':
+      return array.filter((item) => Number(item[columnFilter]) === Number(valueFilter));
+    default:
+      return array;
+    }
+  };
+
+  const dropdownFilter = (data) => {
+    let dataFilter = data;
+    valueFilterList.forEach((item) => {
+      dataFilter = applyFilter(item, dataFilter);
+    });
+    return dataFilter;
+  };
 
   return (
     <div>
@@ -30,7 +51,7 @@ function Table() {
           </tr>
         </thead>
         <tbody>
-          {searchFilter().map((planet) => (
+          {dropdownFilter(searchFilter()).map((planet) => (
             <tr key={ planet.name }>
               <td>{planet.name}</td>
               <td>{planet.rotation_period}</td>

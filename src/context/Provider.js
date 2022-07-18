@@ -5,12 +5,24 @@ import Context from './Context';
 function Provider({ children }) {
   const [planetsList, setPlanetsList] = useState([]);
   const [nameFilter, setNameFilter] = useState({ name: '' });
+  const [columnFilter, setColumnFilter] = useState('population');
+  const [comparisonFilter, setComparisonFilter] = useState('maior que');
+  const [valueFilter, setValueFilter] = useState(0);
+  const [valueFilterList, setValueFilterList] = useState([]);
 
   const contextValue = {
     planetsList,
     setPlanetsList,
     nameFilter,
     setNameFilter,
+    columnFilter,
+    setColumnFilter,
+    comparisonFilter,
+    setComparisonFilter,
+    valueFilter,
+    setValueFilter,
+    valueFilterList,
+    setValueFilterList,
   };
 
   useEffect(() => {
