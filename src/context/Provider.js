@@ -5,7 +5,9 @@ import Context from './Context';
 function Provider({ children }) {
   const [planetsList, setPlanetsList] = useState([]);
   const [nameFilter, setNameFilter] = useState({ name: '' });
-  const [columnFilter, setColumnFilter] = useState('population');
+  const [columnFilterList, setColumnFilterList] = useState(['population',
+    'orbital_period', 'diameter', 'rotation_period', 'surface_water']);
+  const [columnFilter, setColumnFilter] = useState(columnFilterList[0]);
   const [comparisonFilter, setComparisonFilter] = useState('maior que');
   const [valueFilter, setValueFilter] = useState(0);
   const [valueFilterList, setValueFilterList] = useState([]);
@@ -23,6 +25,8 @@ function Provider({ children }) {
     setValueFilter,
     valueFilterList,
     setValueFilterList,
+    columnFilterList,
+    setColumnFilterList,
   };
 
   useEffect(() => {

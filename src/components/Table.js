@@ -32,7 +32,6 @@ function Table() {
   return (
     <div>
       <table>
-        {console.log()}
         <thead>
           <tr>
             <th>Name</th>

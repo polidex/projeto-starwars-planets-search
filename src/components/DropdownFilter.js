@@ -1,9 +1,10 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import Context from '../context/Context';
 
 function DropdownFilter() {
   const { columnFilter, setColumnFilter, comparisonFilter, setComparisonFilter,
-    valueFilter, setValueFilter, valueFilterList, setValueFilterList,
+    valueFilter, setValueFilter, valueFilterList, setValueFilterList, columnFilterList,
+    setColumnFilterList,
   } = useContext(Context);
 
   const handleColumnFilter = ({ target: { value } }) => {
@@ -22,6 +23,18 @@ function DropdownFilter() {
     setValueFilterList([...valueFilterList, event]);
   };
 
+  useEffect(() => {
+    const filterColumn = (filter, list) => (
+      list.filter((item) => item !== filter.columnFilter)
+    );
+
+    let addColumn = columnFilterList;
+    valueFilterList.forEach((filter) => {
+      addColumn = filterColumn(filter, addColumn);
+    });
+    setColumnFilterList(addColumn);
+  }, [valueFilterList]);
+
   return (
     <div>
       <label htmlFor="column-filter">
@@ -33,11 +46,13 @@ function DropdownFilter() {
           value={ columnFilter }
           onChange={ handleColumnFilter }
         >
-          <option value="population">population</option>
-          <option value="orbital_period">orbital_period</option>
-          <option value="diameter">diameter</option>
-          <option value="rotation_period">rotation_period</option>
-          <option value="surface_water">surface_water</option>
+          {columnFilterList
+            .map((item) => (
+              <option
+                key={ item }
+              >
+                {item}
+              </option>))}
         </select>
       </label>
       <label htmlFor="comparison-filter">
