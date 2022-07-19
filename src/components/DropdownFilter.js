@@ -46,13 +46,9 @@ function DropdownFilter() {
           value={ columnFilter }
           onClick={ handleColumnFilter }
         >
-          {columnFilterList
-            .map((item) => (
-              <option
-                key={ item }
-              >
-                {item}
-              </option>))}
+          {columnFilterList.map((item) => (
+            <option key={ item }>{item}</option>
+          ))}
         </select>
       </label>
       <label htmlFor="comparison-filter">

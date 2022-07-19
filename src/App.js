@@ -4,6 +4,8 @@ import './App.css';
 import Provider from './context/Provider';
 import SearchInput from './components/SearchInput';
 import DropdownFilter from './components/DropdownFilter';
+import Filters from './components/Filters';
+import RemoveFilters from './components/RemoveFilters';
 
 function App() {
   return (
@@ -11,6 +13,8 @@ function App() {
       <div>
         <SearchInput />
         <DropdownFilter />
+        <Filters />
+        <RemoveFilters />
         <Table />
       </div>
     </Provider>
