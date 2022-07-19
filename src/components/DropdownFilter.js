@@ -44,7 +44,7 @@ function DropdownFilter() {
           id="column-filter"
           data-testid="column-filter"
           value={ columnFilter }
-          onChange={ handleColumnFilter }
+          onClick={ handleColumnFilter }
         >
           {columnFilterList
             .map((item) => (
