@@ -50,9 +50,9 @@ function Table() {
           </tr>
         </thead>
         <tbody>
-          {dropdownFilter(searchFilter()).map((planet) => (
+          {planetsList?.length && dropdownFilter(searchFilter()).map((planet) => (
             <tr key={ planet.name }>
-              <td>{planet.name}</td>
+              <td data-testid="planet-name">{planet.name}</td>
               <td>{planet.rotation_period}</td>
               <td>{planet.orbital_period}</td>
               <td>{planet.diameter}</td>

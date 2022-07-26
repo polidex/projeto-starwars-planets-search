@@ -31,9 +31,9 @@ function Provider({ children }) {
 
   useEffect(() => {
     const fetchPlanets = async () => {
-      const { results } = await fetch('https://swapi-trybe.herokuapp.com/api/planets/')
-        .then((result) => result.json());
-      setPlanetsList(results);
+      const planets = await fetch('https://swapi-trybe.herokuapp.com/api/planets/');
+      const result = await planets.json();
+      await setPlanetsList(result.results);
     };
     fetchPlanets();
   }, []);
