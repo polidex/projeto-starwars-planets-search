@@ -234,3 +234,5 @@ const mockedPlanets = {
     }
 ]
 }
+
+export default mockedPlanets;

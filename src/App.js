@@ -6,6 +6,7 @@ import SearchInput from './components/SearchInput';
 import DropdownFilter from './components/DropdownFilter';
 import Filters from './components/Filters';
 import RemoveFilters from './components/RemoveFilters';
+import OrderFilter from './components/OrderFilter';
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         <SearchInput />
         <DropdownFilter />
         <Filters />
+        <OrderFilter />
         <RemoveFilters />
         <Table />
       </div>

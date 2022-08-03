@@ -11,6 +11,9 @@ function Provider({ children }) {
   const [comparisonFilter, setComparisonFilter] = useState('maior que');
   const [valueFilter, setValueFilter] = useState(0);
   const [valueFilterList, setValueFilterList] = useState([]);
+  const [column, setColumn] = useState('');
+  const [sort, setSort] = useState('');
+  const [order, setOrder] = useState({});
 
   const contextValue = {
     planetsList,
@@ -27,6 +30,12 @@ function Provider({ children }) {
     setValueFilterList,
     columnFilterList,
     setColumnFilterList,
+    column,
+    setColumn,
+    sort,
+    setSort,
+    order,
+    setOrder,
   };
 
   useEffect(() => {
