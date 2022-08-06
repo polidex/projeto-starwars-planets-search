@@ -47,7 +47,7 @@ describe('Testa toda a aplicação', () => {
     userEvent.click(btnFilter);
     
     const planets = screen.queryAllByTestId('planet-name');
-    expect(planets).toHaveLength(7); // ?????????
+    expect(planets).toHaveLength(8);
   });
   
   it('Testa o componente "Filters"', () => {
@@ -97,6 +97,17 @@ describe('Testa toda a aplicação', () => {
     const radioASC = screen.getByTestId('column-sort-input-asc');
     const radioDESC = screen.getByTestId('column-sort-input-desc');
     const btnSort = screen.getByTestId('column-sort-button');
+    const planets = screen.queryAllByTestId('planet-name');
+    console.log(planets);
+
+    userEvent.selectOptions(selectColumn, 'rotation_period');
+    userEvent.click(radioASC);
+    userEvent.click(btnSort);
+
+    userEvent.selectOptions(selectColumn, 'rotation_period');
+    userEvent.click(radioDESC);
+    userEvent.click(btnSort);
+
   });
 
 });
