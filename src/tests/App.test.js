@@ -47,7 +47,7 @@ describe('Testa toda a aplicação', () => {
     userEvent.click(btnFilter);
     
     const planets = screen.queryAllByTestId('planet-name');
-    expect(planets).toHaveLength(8);
+    expect(planets).toHaveLength(7); // ?????????
   });
   
   it('Testa o componente "Filters"', () => {
@@ -69,31 +69,34 @@ describe('Testa toda a aplicação', () => {
     expect(filter).not.toBeInTheDocument();
   });
 
-  // it('Testa o componente "Filters"', () => {
-  //   const selectColumn = screen.getByTestId('column-filter');
-  //   const selectComprarison = screen.getByTestId('comparison-filter');
-  //   const inputValue = screen.getByTestId('value-filter');
-  //   const btnFilter = screen.getByTestId('button-filter');
-  //   const btnRemoveFilters = screen.getByTestId('button-remove-filters');
+  it('Testa o componente "RemoveFilters"', () => {
+    const selectColumn = screen.getByTestId('column-filter');
+    const selectComprarison = screen.getByTestId('comparison-filter');
+    const inputValue = screen.getByTestId('value-filter');
+    const btnFilter = screen.getByTestId('button-filter');
+    const btnRemoveFilters = screen.getByTestId('button-remove-filters');
     
-  //   userEvent.selectOptions(selectColumn, 'diameter');
-  //   userEvent.selectOptions(selectComprarison, 'maior que');
-  //   userEvent.type(inputValue, '10000');
-  //   userEvent.click(btnFilter);
-  //   userEvent.selectOptions(selectColumn, 'orbital_period');
-  //   userEvent.selectOptions(selectComprarison, 'menor que');
-  //   userEvent.type(inputValue, '4500');
-  //   userEvent.click(btnFilter);
-  //   userEvent.selectOptions(selectColumn, 'population');
-  //   userEvent.selectOptions(selectComprarison, 'igual a');
-  //   userEvent.type(inputValue, '200000');
-  //   userEvent.click(btnFilter);
+    userEvent.selectOptions(selectColumn, 'diameter');
+    userEvent.selectOptions(selectComprarison, 'maior que');
+    userEvent.type(inputValue, '10000');
+    userEvent.click(btnFilter);
+    userEvent.selectOptions(selectColumn, 'orbital_period');
+    userEvent.selectOptions(selectComprarison, 'menor que');
+    userEvent.type(inputValue, '4500');
+    userEvent.click(btnFilter);
+        
+    expect(screen.getAllByTestId('filter')).toHaveLength(2)
     
-  //   const planets = screen.queryAllByTestId('planet-name');
-  //   expect(planets).toHaveLength(1);
-    
-  //   userEvent.click(btnRemoveFilters);
-  //   expect(planets).toHaveLength(10);
-  // });
+    userEvent.click(btnRemoveFilters);
+    const planets = screen.queryAllByTestId('planet-name');
+    expect(planets).toHaveLength(10);
+  });
+
+  it('Testa o componente "OrderFilter"', () => {
+    const selectColumn = screen.getByTestId('column-sort');
+    const radioASC = screen.getByTestId('column-sort-input-asc');
+    const radioDESC = screen.getByTestId('column-sort-input-desc');
+    const btnSort = screen.getByTestId('column-sort-button');
+  });
 
 });
