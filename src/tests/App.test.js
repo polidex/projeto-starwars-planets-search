@@ -55,53 +55,45 @@ describe('Testa toda a aplicação', () => {
     const selectComprarison = screen.getByTestId('comparison-filter');
     const inputValue = screen.getByTestId('value-filter');
     const btnFilter = screen.getByTestId('button-filter');
-    const btnX = screen.getByRole('button', 'X');
     
-    userEvent.selectOptions(selectColumn, 'diameter');
-    userEvent.selectOptions(selectComprarison, 'maior que');
-    userEvent.type(inputValue, '10000');
-    userEvent.click(btnFilter);
-    // userEvent.selectOptions(selectColumn, 'orbital_period');
-    // userEvent.selectOptions(selectComprarison, 'menor que');
-    // userEvent.type(inputValue, '4500');
-    // userEvent.click(btnFilter);
-    // userEvent.selectOptions(selectColumn, 'population');
-    // userEvent.selectOptions(selectComprarison, 'igual a');
-    // userEvent.type(inputValue, '200000');
-    // userEvent.click(btnFilter);
-    
-    const planets = screen.queryAllByTestId('planet-name');
-    expect(planets).toHaveLength(1);
-    
-    userEvent.click(btnRemoveFilters);
-    expect(planets).toHaveLength(10);
-  });
-
-  it('Testa o componente "Filters"', () => {
-    const selectColumn = screen.getByTestId('column-filter');
-    const selectComprarison = screen.getByTestId('comparison-filter');
-    const inputValue = screen.getByTestId('value-filter');
-    const btnFilter = screen.getByTestId('button-filter');
-    const btnRemoveFilters = screen.getByTestId('button-remove-filters');
-    
-    userEvent.selectOptions(selectColumn, 'diameter');
-    userEvent.selectOptions(selectComprarison, 'maior que');
-    userEvent.type(inputValue, '10000');
-    userEvent.click(btnFilter);
-    userEvent.selectOptions(selectColumn, 'orbital_period');
-    userEvent.selectOptions(selectComprarison, 'menor que');
-    userEvent.type(inputValue, '4500');
-    userEvent.click(btnFilter);
     userEvent.selectOptions(selectColumn, 'population');
     userEvent.selectOptions(selectComprarison, 'igual a');
     userEvent.type(inputValue, '200000');
     userEvent.click(btnFilter);
-    
-    const planets = screen.queryAllByTestId('planet-name');
-    expect(planets).toHaveLength(1);
-    
-    userEvent.click(btnRemoveFilters);
-    expect(planets).toHaveLength(10);
+
+    const filter = screen.getByTestId('filter');
+    const btnX = screen.getByTestId('button-x');
+
+    expect(filter).toBeInTheDocument();
+    userEvent.click(btnX);
+    expect(filter).not.toBeInTheDocument();
   });
+
+  // it('Testa o componente "Filters"', () => {
+  //   const selectColumn = screen.getByTestId('column-filter');
+  //   const selectComprarison = screen.getByTestId('comparison-filter');
+  //   const inputValue = screen.getByTestId('value-filter');
+  //   const btnFilter = screen.getByTestId('button-filter');
+  //   const btnRemoveFilters = screen.getByTestId('button-remove-filters');
+    
+  //   userEvent.selectOptions(selectColumn, 'diameter');
+  //   userEvent.selectOptions(selectComprarison, 'maior que');
+  //   userEvent.type(inputValue, '10000');
+  //   userEvent.click(btnFilter);
+  //   userEvent.selectOptions(selectColumn, 'orbital_period');
+  //   userEvent.selectOptions(selectComprarison, 'menor que');
+  //   userEvent.type(inputValue, '4500');
+  //   userEvent.click(btnFilter);
+  //   userEvent.selectOptions(selectColumn, 'population');
+  //   userEvent.selectOptions(selectComprarison, 'igual a');
+  //   userEvent.type(inputValue, '200000');
+  //   userEvent.click(btnFilter);
+    
+  //   const planets = screen.queryAllByTestId('planet-name');
+  //   expect(planets).toHaveLength(1);
+    
+  //   userEvent.click(btnRemoveFilters);
+  //   expect(planets).toHaveLength(10);
+  // });
 
 });

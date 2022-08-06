@@ -26,6 +26,7 @@ function Filters() {
           </p>
           <button
             type="button"
+            data-testid="button-x"
             onClick={ () => handleClick(filter.columnFilter) }
           >
             X
