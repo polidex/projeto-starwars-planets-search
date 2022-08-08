@@ -29,10 +29,15 @@ describe('Testa toda a aplicação', () => {
 
   it('Testa o componente "SearchInput"', () => {
     const inputName = screen.getByTestId('name-filter');
-    
-    userEvent.type(inputName, 'oo');
     const planets = screen.queryAllByTestId('planet-name');
-    expect(planets).toHaveLength(2);
+    expect(planets).toHaveLength(10);
+    
+    userEvent.type(inputName, 'o');
+    expect(screen.queryAllByTestId('planet-name')).toHaveLength(7);
+
+    userEvent.clear(inputName)
+    userEvent.type(inputName, 'oo');
+    expect(screen.queryAllByTestId('planet-name')).toHaveLength(2);
   });
   
   it('Testa o componente "DropdownFilter"', () => {
@@ -40,14 +45,16 @@ describe('Testa toda a aplicação', () => {
     const selectComprarison = screen.getByTestId('comparison-filter');
     const inputValue = screen.getByTestId('value-filter');
     const btnFilter = screen.getByTestId('button-filter');
+
+    const planets = screen.queryAllByTestId('planet-name');
+    expect(planets).toHaveLength(10);
     
     userEvent.selectOptions(selectColumn, 'diameter');
     userEvent.selectOptions(selectComprarison, 'maior que');
     userEvent.type(inputValue, '7200');
     userEvent.click(btnFilter);
     
-    const planets = screen.queryAllByTestId('planet-name');
-    expect(planets).toHaveLength(8);
+    expect(screen.queryAllByTestId('planet-name')).toHaveLength(7); //arrumar
   });
   
   it('Testa o componente "Filters"', () => {
@@ -58,6 +65,7 @@ describe('Testa toda a aplicação', () => {
     
     userEvent.selectOptions(selectColumn, 'population');
     userEvent.selectOptions(selectComprarison, 'igual a');
+    expect(screen.getByText('igual a')).toBeInTheDocument()
     userEvent.type(inputValue, '200000');
     userEvent.click(btnFilter);
 
@@ -97,9 +105,7 @@ describe('Testa toda a aplicação', () => {
     const radioASC = screen.getByTestId('column-sort-input-asc');
     const radioDESC = screen.getByTestId('column-sort-input-desc');
     const btnSort = screen.getByTestId('column-sort-button');
-    const planets = screen.queryAllByTestId('planet-name');
-    console.log(planets);
-
+    
     userEvent.selectOptions(selectColumn, 'rotation_period');
     userEvent.click(radioASC);
     userEvent.click(btnSort);
@@ -110,4 +116,59 @@ describe('Testa toda a aplicação', () => {
 
   });
 
+  it('Testa o componente "Table"', () => {
+    const selectColumn = screen.getByTestId('column-sort');
+    const radioASC = screen.getByTestId('column-sort-input-asc');
+    const radioDESC = screen.getByTestId('column-sort-input-desc');
+    const btnSort = screen.getByTestId('column-sort-button');
+    const expectedPlanets = ['Alderaan', 'Bespin', 'Coruscant', 'Dagobah', 'Endor',
+    'Hoth', 'Kamino', 'Naboo', 'Tatooine', 'Yavin IV'];
+    const diameterDESC = ['Bespin', 'Kamino', 'Alderaan', 'Coruscant', 'Naboo',
+    'Tatooine', 'Yavin IV', 'Dagobah', 'Hoth', 'Endor'];
+    const populationASC = ['Yavin IV', 'Tatooine', 'Bespin', 'Endor', 'Kamino',
+    'Alderaan', 'Naboo', 'Coruscant'];
+    const populationDESC = ['Coruscant', 'Naboo', 'Alderaan', 'Kamino', 'Endor',
+    'Bespin', 'Tatooine', 'Yavin IV'];
+    const expectedPlanetsWithUnknownValues = ['Dagobah', 'Hoth'];
+    
+    screen.getAllByTestId('planet-name').forEach((planet, index) => {
+      expect(planet.innerHTML).toBe(expectedPlanets[index]);
+    });
+
+    userEvent.selectOptions(selectColumn, 'diameter');
+    userEvent.click(radioDESC);
+    userEvent.click(btnSort);
+
+    screen.getAllByTestId('planet-name').forEach((planet, index) => {
+      expect(planet.innerHTML).toBe(diameterDESC[index]);
+    });
+
+    userEvent.selectOptions(selectColumn, 'population');
+    userEvent.click(radioASC);
+    userEvent.click(btnSort);
+
+    screen.getAllByTestId('planet-name').forEach((planet, index) => {
+      if (populationASC[index]) {
+        expect(planet.innerHTML).toBe(populationASC[index]);
+      } else {
+        expect(planet.value).toBe(expectedPlanetsWithUnknownValues[index]);
+      }
+    });
+
+    userEvent.selectOptions(selectColumn, 'population');
+    userEvent.click(radioDESC);
+    userEvent.click(btnSort);
+
+    screen.getAllByTestId('planet-name').forEach((planet, index) => {
+      if (populationDESC[index]) {
+        expect(planet.innerHTML).toBe(populationDESC[index]);
+      } else {
+        expect(planet.value).toBe(expectedPlanetsWithUnknownValues[index]);
+      }
+    });
+  });
+
+
 });
+
+

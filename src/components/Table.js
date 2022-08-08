@@ -4,16 +4,28 @@ import Context from '../context/Context';
 function Table() {
   const { planetsList, nameFilter, valueFilterList, order } = useContext(Context);
 
+  // const applyFilter = ({ columnFilter, comparisonFilter, valueFilter }, array) => {
+  //   switch (comparisonFilter) {
+  //   case 'maior que':
+  //     return array.filter((item) => Number(item[columnFilter]) > Number(valueFilter));
+  //   case 'menor que':
+  //     return array.filter((item) => Number(item[columnFilter]) < Number(valueFilter));
+  //   case 'igual a':
+  //     return array.filter((item) => Number(item[columnFilter]) === Number(valueFilter));
+  //   default:
+  //     return array;
+  //   }
+  // };
+
   const applyFilter = ({ columnFilter, comparisonFilter, valueFilter }, array) => {
-    switch (comparisonFilter) {
-    case 'maior que':
+    if (comparisonFilter === 'maior que') {
       return array.filter((item) => Number(item[columnFilter]) > Number(valueFilter));
-    case 'menor que':
+    }
+    if (comparisonFilter === 'menor que') {
       return array.filter((item) => Number(item[columnFilter]) < Number(valueFilter));
-    case 'igual a':
+    }
+    if (comparisonFilter === 'igual a') {
       return array.filter((item) => Number(item[columnFilter]) === Number(valueFilter));
-    default:
-      return array;
     }
   };
 
@@ -51,7 +63,6 @@ function Table() {
     if (a.name > b.name) {
       return positiveNum;
     }
-    return 0;
   }
 
   function searchFilter(param) {
