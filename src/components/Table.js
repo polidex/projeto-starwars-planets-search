@@ -54,19 +54,19 @@ function Table() {
     }
   };
 
-  function sortPlanetsName(a, b) {
-    const negativeNum = -1;
-    const positiveNum = 1;
-    if (a.name < b.name) {
-      return negativeNum;
-    }
-    if (a.name > b.name) {
-      return positiveNum;
-    }
-  }
+  // function sortPlanetsName(a, b) {
+  //   const negativeNum = -1;
+  //   const positiveNum = 1;
+  //   if (a.name < b.name) {
+  //     return negativeNum;
+  //   }
+  //   if (a.name > b.name) {
+  //     return positiveNum;
+  //   }
+  // }
 
   function searchFilter(param) {
-    const newList = planetsList.sort(sortPlanetsName);
+    const newList = planetsList.sort((a, b) => (a.name < b.name ? -'1' : 1));
     if (param) {
       applySort(order);
     }

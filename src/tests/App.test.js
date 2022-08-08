@@ -73,6 +73,8 @@ describe('Testa toda a aplicação', () => {
     const btnX = screen.getByTestId('button-x');
 
     expect(filter).toBeInTheDocument();
+    expect(screen.getByText('Tatooine')).toBeInTheDocument();
+    expect(screen.queryAllByTestId('planet-name')).toHaveLength(1);
     userEvent.click(btnX);
     expect(filter).not.toBeInTheDocument();
   });
